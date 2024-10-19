@@ -2,14 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:meals/models/category.dart';
 
 class CategoryGridItem extends StatelessWidget {
-  const CategoryGridItem({required this.category, super.key});
+  const CategoryGridItem(
+      {required this.onSelectCategory, required this.category, super.key});
 
+  final void Function() onSelectCategory;
   final Category category;
   @override
   Widget build(context) {
     return InkWell(
       borderRadius: BorderRadius.circular(16),
-      onTap: () {},
+      onTap: onSelectCategory,
       splashColor: Theme.of(context).colorScheme.onPrimary,
       child: Container(
         padding: const EdgeInsets.all(18),
