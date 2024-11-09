@@ -80,9 +80,10 @@ class _TabsScreenState extends State<TabsScreen> {
         return false;
       }
       return true;
-    });
+    }).toList();
 
-    Widget activePage = CategoriesScreen(onToogleMeal: toggleFavoriteMeal);
+    Widget activePage = CategoriesScreen(
+        onToogleMeal: toggleFavoriteMeal, filteredMeals: filteredMeals);
     var title = 'Categories';
 
     if (_pageIndex == 1) {
