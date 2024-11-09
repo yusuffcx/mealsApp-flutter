@@ -10,12 +10,11 @@ class FiltersScreen extends StatefulWidget {
 
 enum Filter { glutenFree, lactoseFree, vegetarian, vegan }
 
-var _setGlutenFree = false;
-var _setLactoseFree = false;
-var _setVegetarian = false;
-var _setVegan = false;
-
 class _FiltersScreenState extends State<FiltersScreen> {
+  var _setGlutenFree = false;
+  var _setLactoseFree = false;
+  var _setVegetarian = false;
+  var _setVegan = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
