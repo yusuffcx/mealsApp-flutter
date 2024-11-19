@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:meals/data/dummy_data.dart';
 import 'package:meals/models/category.dart';
 import 'package:meals/models/meal.dart';
@@ -52,28 +51,33 @@ class _CategoriesScreenState extends State<CategoriesScreen>
   @override
   Widget build(context) {
     return AnimatedBuilder(
-        animation: animationController,
-        builder: (context, child) => Padding(
-              padding:
-                  EdgeInsets.only(top: 100 - animationController.value * 100),
-              child: child,
+      animation: animationController,
+      builder: (context, child) => SlideTransition(
+        position: Tween(
+          begin: const Offset(0, 0.3),
+          end: const Offset(0, 0),
+        ).animate(
+          CurvedAnimation(parent: animationController, curve: Curves.easeInOut),
+        ),
+        child: child,
+      ),
+      child: GridView(
+        padding: const EdgeInsets.all(24),
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            mainAxisSpacing: 20,
+            crossAxisSpacing: 20,
+            childAspectRatio: 3 / 2),
+        children: [
+          for (final category in availableCategories)
+            CategoryGridItem(
+              category: category,
+              onSelectCategory: () {
+                _selectedCategory(context, category);
+              },
             ),
-        child: GridView(
-          padding: const EdgeInsets.all(24),
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              mainAxisSpacing: 20,
-              crossAxisSpacing: 20,
-              childAspectRatio: 3 / 2),
-          children: [
-            for (final category in availableCategories)
-              CategoryGridItem(
-                category: category,
-                onSelectCategory: () {
-                  _selectedCategory(context, category);
-                },
-              ),
-          ],
-        ));
+        ],
+      ),
+    );
   }
 }
